@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+
+<script>
+function add(){
+    const n1=document.querySelector("#n1").value;
+
+    const n2=document.querySelector("#n2").value;
+
+const result=
+Number(n1)+Number(n2);
+
+document.querySelector("#result").value=result;
+
+
+}
+
+function clickme(){
+    //이미 코드 내에서 id를 가지고 오겠다고 명시
+    //const btn=document.getElmentById("CilckMe")
+    
+    //딱히 명시되지 않음, 직접 속성 입력
+    const btn=document.querySelector("#CilckMe")
+
+    btn.innerHTML="<h1>클릭했음</h1>"
+
+    alert("버튼이 클릭되었습니다.")
+}
+
+
+</script>
+
+</head>
+<body>
+
+
+<!--js 인라인, 인터널, 익스터널 코드 비교-->
+
+
+<!--1. 인라인 코드, 태그 내에 js 코드를 직접 삽입-->
+<button id="CilckMe" onclick="clickme()">Cilck Me</button>
+
+
+
+
+
+
+
+    <h1>덧셈 계산기</h1>
+    <input type="text" id="n1" size="4" />
+    <input type="text" id="n2" size="4" />
+    <button id="addButton" onclick="add()">+</button>
+    <input id="result" />
+
+
+
+
+</body>
+</html>
