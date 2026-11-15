@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>도서 관리</title>
+    <link rel="stylesheet" href="my.css">
 <script>
 let books = [
 
@@ -40,26 +40,182 @@ let books = [
 
 ];
 
+
+window.addEventListener("load", function () {
+    const form = document.querySelector("#bookForm");
+    const bookId = document.querySelector("#bookId");
+    const title = document.querySelector("#datalist");
+    const author = document.querySelector("#author");
+    const category = document.querySelector("#category");
+    const price = document.querySelector("#price");
+    const ulist = document.querySelector("#ulist");
+    const add = document.querySelector("#addbtn");
+    const dbtn = document.querySelector("#deletebtn");
+
+    let editingBook = null; // 수정 중인 도서, 없으면 새 도서 추가
+
+    function resetForm() {
+        form.reset();
+        editingBook = null;
+        add.innerText = "추가";
+    }
+
+    function render() {
+        ulist.innerText = "";
+
+        for (let book of books) {
+            const li = document.createElement("li");
+                    li.className = "list-item";
+            li.innerText = book.id + " / " + book.title + " / " + book.author
+                + " / " + book.category + " / " + book.price + "원 ";
+            ulist.appendChild(li);
+
+            const editbtn = document.createElement("button");
+            editbtn.type = "button";
+            editbtn.className = "button";
+            editbtn.innerText = "수정";
+            li.appendChild(editbtn);
+
+            editbtn.addEventListener("click", function () {
+                bookId.value = book.id;
+                title.value = book.title;
+                author.value = book.author;
+                category.value = book.category;
+                price.value = book.price;
+                editingBook = book;
+                add.innerText = "저장";
+                title.focus();
+            });
+
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "button delete-button";
+            btn.innerText = "삭제";
+            li.appendChild(btn);
+
+            btn.addEventListener("click", function () {
+                if (!confirm("삭제하시겠습니까?")) {
+                    return;
+                }
+
+                for (let i = 0; i < books.length; i++) {
+                    if (books[i] === book) {
+                        books.splice(i, 1);
+                        break;
+                    }
+                }
+                if (editingBook === book) {
+                    resetForm();
+                }
+                render();
+            });
+        }
+    }
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (bookId.value === "" || Number(bookId.value) < 1 || !Number.isSafeInteger(Number(bookId.value))) {
+            alert("도서 id는 1 이상의 정수로 입력하세요.");
+            bookId.focus();
+            return;
+        }
+        for (let book of books) {
+            if (book.id === Number(bookId.value) && book !== editingBook) {
+                alert("이미 있는 도서 id입니다.");
+                bookId.focus();
+                return;
+            }
+        }
+        if (title.value.trim() === "") {
+            alert("도서명을 입력하세요.");
+            title.focus();
+            return;
+        }
+        if (author.value.trim() === "") {
+            alert("저자를 입력하세요.");
+            author.focus();
+            return;
+        }
+        if (category.value.trim() === "") {
+            alert("카테고리를 입력하세요.");
+            category.focus();
+            return;
+        }
+        if (price.value === "" || Number(price.value) < 0 || !Number.isSafeInteger(Number(price.value))) {
+            alert("가격은 0 이상의 정수로 입력하세요.");
+            price.focus();
+            return;
+        }
+
+        if (editingBook === null) {
+            books.push({
+                id: Number(bookId.value),
+                title: title.value.trim(),
+                author: author.value.trim(),
+                category: category.value.trim(),
+                price: Number(price.value)
+            });
+        } else {
+            editingBook.id = Number(bookId.value);
+            editingBook.title = title.value.trim();
+            editingBook.author = author.value.trim();
+            editingBook.category = category.value.trim();
+            editingBook.price = Number(price.value);
+        }
+
+        resetForm();
+        render();
+    });
+
+    dbtn.addEventListener("click", function () {
+        if (confirm("전체 삭제하시겠습니까?")) {
+            books = [];
+            resetForm();
+            render();
+        }
+    });
+
+    document.querySelector("#cancelbtn").addEventListener("click", resetForm);
+    render();
+});
+
+
 </script>
+</head>
 
 
-<body>
-    <form>
-        <input type="text" id="datalist" placeholder="정보를 입력하세요">
+<body class="page">
+    <nav class="nav"><a class="link" href="index.html">HOME</a></nav>
+    <h1>도서 관리</h1>
+    <p class="description">도서를 추가하거나 목록에서 수정·삭제하세요. 새로고침하면 초기 데이터로 돌아갑니다.</p>
+    <form id="bookForm" novalidate>
+        <label for="bookId">도서 id</label><br>
+        <input class="field" type="number" id="bookId" name="id" min="1" step="1" required><br>
+
+        <label for="datalist">도서명</label><br>
+        <input class="field" type="text" id="datalist" name="title" required placeholder="정보를 입력하세요"><br>
+
+        <label for="author">저자</label><br>
+        <input class="field" type="text" id="author" name="author" required><br>
+
+        <label for="category">카테고리</label><br>
+        <input class="field" type="text" id="category" name="category" required><br>
+
+        <label for="price">가격</label><br>
+        <input class="field" type="number" id="price" name="price" min="0" step="1" required><br>
 
 
 
 
-        <ul id="ulist">
+        <button class="button" type="submit" id="addbtn">추가</button>
+        <button class="button" type="button" id="cancelbtn">입력 초기화</button>
+    </form>
 
-
-        </ul>
-        <button id="addbtn">추가</button>
-        <button id="deletebtn">삭제</button>
-
-        </div>
-
-
-    </form>    
+    <h2>도서 목록</h2>
+    <p class="description">도서 id / 도서명 / 저자 / 카테고리 / 가격</p>
+    <ul id="ulist"></ul>
+    <button class="button delete-button" type="button" id="deletebtn">전체 삭제</button>
+    
 </body>
 </html>

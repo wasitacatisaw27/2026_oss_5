@@ -1,0 +1,91 @@
+.page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #222;
+    font-family: Arial, sans-serif;
+}
+
+.nav {
+    margin-bottom: 25px;
+}
+
+.link {
+    color: #245a8d;
+    margin-right: 15px;
+}
+
+.description {
+    color: #555;
+    line-height: 1.6;
+}
+
+#bookForm, #fruitForm {
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: white;
+}
+
+.field {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+}
+
+.field:focus {
+    outline: 2px solid #245a8d;
+}
+
+.button {
+    padding: 8px 12px;
+    margin: 4px;
+    border: 0;
+    background-color: #245a8d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #173c5f;
+}
+
+.delete-button {
+    background-color: #9c3939;
+}
+
+.delete-button:hover {
+    background-color: #722727;
+}
+
+#ulist {
+    padding: 0;
+    list-style: none;
+}
+
+.list-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    background-color: white;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.menu-item {
+    margin: 15px 0;
+}
+
+@media (max-width: 600px) {
+    .page {
+        padding: 12px;
+    }
+
+    #bookForm, #fruitForm {
+        padding: 12px;
+    }
+}

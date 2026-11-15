@@ -1,97 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>과일 목록</title>
+    <link rel="stylesheet" href="my.css">
 </head>
-<style>
- 
-</style>
+<body class="page">
+    <nav class="nav"><a class="link" href="index.html">HOME</a></nav>
+    <h1>과일 목록</h1>
+    <p>여러 개를 입력할 때는 쉼표로!</p>
 
-<script>
-
-    function del(e){
-
-    e.target.parentElement.remove();
-
-    }
-     function alldel(e){
-
-    e.remove();
-
-    }
-
-
-    window.addEventListener("load", function () {
-        const fruit = document.querySelector("#fruit");
-        const ulist = document.querySelector("#ulist");
-
-
-        const add = document.querySelector("#add");
-        const dbtn = document.querySelector("#d");
-
-
-
-        add.addEventListener("click", function (){
-
-
-            let fruitList = fruit.value.split(",");
-            
-            for(let one of fruitList){
-
-            //for (let i = 0; i < fruitList.value; i++) {
-                const li = document.createElement("li");
-                //li.textContent = fruitList[i];
-                
-                li.textContent = one;
-                ulist.appendChild(li);
-
-
-                const btn=document.createElement("button");
-                btn.textContent="삭제";
-                li.appendChild(btn);
-                btn.addEventListener("click",del);
-                dbtn.addEventListener("click",alldel);
-
-            }
-
-            event.preventDefault(); 
-        })
-
- 
-
-
-
-
-    })
-
-
-
-</script>
-
-
-<body>
-    <form>
-        <input type="text" id=fruit placeholder="과일을 입력하세요">
-
-
-        <button id="add">추가</button>
-
-
-        <ul id="ulist">
-
-
-        </ul>
-
-        <button id="d">전체 삭제</button>
-
-        </div>
-
-
+    <form id="fruitForm">
+        <label for="fruit">과일</label>
+        <input class="field" type="text" id="fruit" name="fruit" placeholder="apple, banana">
+        <button class="button" type="submit" id="add">추가</button>
     </form>
 
-</body>
+    <ul id="ulist"></ul>
+    <button class="button delete-button" type="button" id="d">전체 삭제</button>
 
+    <script>
+        function del(e) {
+            e.target.parentElement.remove();
+        }
+
+        function alldel() {
+            document.querySelector("#ulist").innerText = "";
+        }
+
+        const form = document.querySelector("#fruitForm");
+        const fruit = document.querySelector("#fruit");
+        const ulist = document.querySelector("#ulist");
+        const dbtn = document.querySelector("#d");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (fruit.value.trim() === "") {
+                alert("과일을 입력하세요.");
+                fruit.focus();
+                return;
+            }
+
+            let fruitList = fruit.value.split(",");
+
+            for (let one of fruitList) {
+                one = one.trim();
+
+                if (one !== "") {
+                    const li = document.createElement("li");
+                    li.className = "list-item";
+                    li.innerText = one + " ";
+                    ulist.appendChild(li);
+
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "button delete-button";
+                    btn.innerText = "삭제";
+                    li.appendChild(btn);
+                    btn.addEventListener("click", del);
+                }
+            }
+
+            fruit.value = "";
+            fruit.focus();
+        });
+
+        dbtn.addEventListener("click", alldel);
+    </script>
+</body>
 </html>
