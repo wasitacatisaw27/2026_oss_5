@@ -1,24 +1,6 @@
-.page {
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f5f5f5;
-    color: #222;
-    font-family: Arial, sans-serif;
-}
 
 .nav {
     margin-bottom: 25px;
-}
-
-.link {
-    color: #245a8d;
-    margin-right: 15px;
-}
-
-.description {
-    color: #555;
-    line-height: 1.6;
 }
 
 #bookForm, #fruitForm {
