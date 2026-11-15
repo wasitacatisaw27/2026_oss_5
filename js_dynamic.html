@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+ 
+</style>
+
+<script>
+
+    function del(e){
+
+    e.target.parentElement.remove();
+
+    }
+     function alldel(e){
+
+    e.remove();
+
+    }
+
+
+    window.addEventListener("load", function () {
+        const fruit = document.querySelector("#fruit");
+        const ulist = document.querySelector("#ulist");
+
+
+        const add = document.querySelector("#add");
+        const dbtn = document.querySelector("#d");
+
+
+
+        add.addEventListener("click", function (){
+
+
+            let fruitList = fruit.value.split(",");
+            
+            for(let one of fruitList){
+
+            //for (let i = 0; i < fruitList.value; i++) {
+                const li = document.createElement("li");
+                //li.textContent = fruitList[i];
+                
+                li.textContent = one;
+                ulist.appendChild(li);
+
+
+                const btn=document.createElement("button");
+                btn.textContent="삭제";
+                li.appendChild(btn);
+                btn.addEventListener("click",del);
+                dbtn.addEventListener("click",alldel);
+
+            }
+
+            event.preventDefault(); 
+        })
+
+ 
+
+
+
+
+    })
+
+
+
+</script>
+
+
+<body>
+    <form>
+        <input type="text" id=fruit placeholder="과일을 입력하세요">
+
+
+        <button id="add">추가</button>
+
+
+        <ul id="ulist">
+
+
+        </ul>
+
+        <button id="d">전체 삭제</button>
+
+        </div>
+
+
+    </form>
+
+</body>
+
+</html>

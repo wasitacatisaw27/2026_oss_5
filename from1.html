@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+
+    function CilckMe() {
+
+        alert('안녕');
+
+    }
+
+    function checkForm(e) {
+            const username = document.querySelector("#uname");
+
+        
+        if (username.value == '') {
+           
+            alert('이름을 입력하세요');
+            username.focus();
+            e.preventDefault();
+        }
+
+    }
+
+
+
+    window.addEventListener("load", function () {
+
+
+        const b1 = document.querySelector("#btn1");
+                b1.addEventListener("click", CilckMe);
+
+
+        const f1 = document.querySelector("#f1")
+                f1.addEventListener("submit", checkForm);
+
+
+
+    });
+
+
+
+
+</script>
+
+
+<body>
+    <button id="btn1">날 눌러</button>
+    <form action="login_ok.thml" method="post" id="f1">
+        <br>
+        <br><input type="text" id="uname" minlength="3" />
+        <br>
+
+        <br><input type="submit" id="sub1" value="전송"/>
+
+
+</form>
+
+
+</body>
+
+</html>
+
+
+<!--바디 부분이 로딩 된 뒤 호출되는지 확인하기 위에 밑에서 한번 해보는 것을 권장-->
